@@ -16,7 +16,6 @@ public class GunData : ScriptableObject {
     public int magSize;
     [Tooltip("In RPM")] public float fireRate;
     public float reloadTime;
-    [HideInInspector] public bool isEquipped = false;
     [HideInInspector] public bool reloading;
     
 }

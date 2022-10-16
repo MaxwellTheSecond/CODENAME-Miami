@@ -9,32 +9,41 @@ public class RaycastGun : MonoBehaviour
     public GameObject impact;
     Camera fpsCamera;
     PlayerHUDController pHUD;
-    public GunData gun;
-
+    public GunData gunData;
+    private float currentAmmo;
+    public float CurrentAmmo{ get {return currentAmmo;} set{currentAmmo = value;}}
+    private bool isEquipped = false;
+    public bool IsEquipped{ get {return isEquipped;} set{isEquipped=value;}}
+    public Animation anim;
 
     private void Start()
     {
         pHUD = GameObject.FindWithTag("Player").GetComponent<PlayerHUDController>();
         fpsCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
-        gun.currentAmmo = gun.magSize;
+        //anim = GetComponent<Animation>();
+        currentAmmo = gunData.magSize;
         if(transform.parent != null)
         {
-            gun.isEquipped=true;
-            pHUD.UpdateAmmoCount(gun.currentAmmo.ToString());
+            Rigidbody rb = transform.GetComponent<Rigidbody>();
+            Collider coll = transform.GetComponent<Collider>();
+            rb.isKinematic=true;
+            coll.enabled=false;
+            isEquipped=true;
+            pHUD.UpdateAmmoCount(currentAmmo.ToString());
         }
         else
         {
-        gun.isEquipped=false;
+        isEquipped=false;
         }
         
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse0) && gun.currentAmmo>0 && gun.isEquipped == true && this.enabled==true)
+        if(Input.GetKeyDown(KeyCode.Mouse0) && currentAmmo>0 && isEquipped == true && this.enabled==true)
         {
             Shoot();
         }
-        if(Input.GetKeyDown(KeyCode.R) && gun.isEquipped == true && this.enabled==true)
+        if(Input.GetKeyDown(KeyCode.R) && isEquipped == true && this.enabled==true && currentAmmo < gunData.magSize)
         {
             Reload();
         }
@@ -53,26 +62,45 @@ public class RaycastGun : MonoBehaviour
             target.TakeDamage(damage);
             }
 
-            gun.currentAmmo-=1;
-            pHUD.UpdateAmmoCount(gun.currentAmmo.ToString());
+            currentAmmo-=1;
+            pHUD.UpdateAmmoCount(currentAmmo.ToString());
             GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(impactGO, 1f);
+
             
         }
         else
         {
-            gun.currentAmmo-=1;
-            pHUD.UpdateAmmoCount(gun.currentAmmo.ToString());
+            currentAmmo-=1;
+            pHUD.UpdateAmmoCount(currentAmmo.ToString());
         }
     }
     void Reload()
     {
-        Invoke("ReloadAction",gun.reloadTime);
+        //Invoke("ReloadAction", gunData.reloadTime);
+        ReloadAction();
+    }
+
+    void ReloadOneBullet()
+    {
+        currentAmmo++;
+        pHUD.UpdateAmmoCount(currentAmmo.ToString());
     }
     private void ReloadAction()
     {
-        gun.currentAmmo = gun.magSize;
-        pHUD.UpdateAmmoCount(gun.currentAmmo.ToString());
+        StartCoroutine("WaitForReload");
     }
+
+    IEnumerator WaitForReload()
+    {
+        while(currentAmmo < gunData.magSize)
+        {
+        anim.Play("PistolReload");
+        yield return new WaitForSeconds(0.3f);
+        }
+    }
+
+    
+
 
 }

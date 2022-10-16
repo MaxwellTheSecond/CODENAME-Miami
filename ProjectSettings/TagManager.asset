@@ -7,6 +7,8 @@ TagManager:
   - Fire
   - WeaponHolster
   - AmmoCounter
+  - Gun
+  - SpeedCounter
   layers:
   - Default
   - TransparentFX
@@ -15,7 +17,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - InvisibleToCamera
   - 
   - 
   - 

@@ -14,6 +14,7 @@ public class WallRun : MonoBehaviour
     [Header("Wall Running")]
     [SerializeField] private float wallRunGravity;
     [SerializeField] private float wallRunJumpForce;
+    [SerializeField] private float wallRunCoolDown;
 
     [Header("Camera")]
     [SerializeField] private Camera cam;
@@ -27,6 +28,7 @@ public class WallRun : MonoBehaviour
 
     private bool wallLeft = false;
     private bool wallRight = false;
+    public bool onCoolDown = false;
 
     RaycastHit leftWallHit;
     RaycastHit rightWallHit;
@@ -53,7 +55,7 @@ public class WallRun : MonoBehaviour
     {
         CheckWall();
 
-        if (CanWallRun())
+        if (CanWallRun() && !onCoolDown)
         {
             if (wallLeft)
             {
@@ -74,6 +76,18 @@ public class WallRun : MonoBehaviour
         {
             StopWallRun();
         }
+    }
+
+    IEnumerator StartWallRunCooldown(float wallRunCoolDown)
+    {
+        if(!onCoolDown)
+        {
+            onCoolDown=true;
+            Debug.Log("Test");
+        yield return new WaitForSeconds(wallRunCoolDown);
+        }
+        onCoolDown=false;
+        
     }
 
     void StartWallRun()
@@ -97,12 +111,14 @@ public class WallRun : MonoBehaviour
                 Vector3 wallRunJumpDirection = transform.up + leftWallHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force);
+                StartWallRunCooldown(wallRunCoolDown);
             }
             else if (wallRight)
             {
                 Vector3 wallRunJumpDirection = transform.up + rightWallHit.normal;
                 rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z); 
                 rb.AddForce(wallRunJumpDirection * wallRunJumpForce * 100, ForceMode.Force);
+                StartWallRunCooldown(wallRunCoolDown);
             }
         }
     }

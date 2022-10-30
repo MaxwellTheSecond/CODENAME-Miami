@@ -52,27 +52,30 @@ public class RaycastGun : MonoBehaviour
     void Shoot()
     {
         RaycastHit hit;
-        if(Physics.Raycast (fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
+        if(anim.isPlaying == false)
         {
-            Debug.Log(hit.transform.name);
-            Target target = hit.transform.GetComponent<Target>();
-
-            if(target != null)
+            if(Physics.Raycast (fpsCamera.transform.position, fpsCamera.transform.forward, out hit, range))
             {
-            target.TakeDamage(damage);
+                Debug.Log(hit.transform.name);
+                Target target = hit.transform.GetComponent<Target>();
+
+                if(target != null)
+                {
+                target.TakeDamage(damage);
+                }
+
+                currentAmmo-=1;
+                pHUD.UpdateAmmoCount(currentAmmo.ToString());
+                GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(impactGO, 1f);
+
+                
             }
-
-            currentAmmo-=1;
-            pHUD.UpdateAmmoCount(currentAmmo.ToString());
-            GameObject impactGO = Instantiate(impact, hit.point, Quaternion.LookRotation(hit.normal));
-            Destroy(impactGO, 1f);
-
-            
-        }
-        else
-        {
-            currentAmmo-=1;
-            pHUD.UpdateAmmoCount(currentAmmo.ToString());
+            else
+            {
+                currentAmmo-=1;
+                pHUD.UpdateAmmoCount(currentAmmo.ToString());
+            }
         }
     }
     void Reload()
@@ -96,7 +99,7 @@ public class RaycastGun : MonoBehaviour
         while(currentAmmo < gunData.magSize)
         {
         anim.Play("PistolReload");
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.1f);
         }
     }
 

@@ -9,6 +9,7 @@ TagManager:
   - AmmoCounter
   - Gun
   - SpeedCounter
+  - Orientation
   layers:
   - Default
   - TransparentFX

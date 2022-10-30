@@ -8,11 +8,11 @@ public class WeaponThrow : MonoBehaviour
     Transform player, gunContainer, fpsCam;
     PlayerHUDController pHUD;
 
-    public float pickUpRange;
+    public float pickUpRange = 100f;
     public float dropForwardForce, dropUpwardForce;
     private bool canPickup = true;
     private IEnumerator coroutine;
-    
+    public Animation anim;
 
     private void Start() {
         pHUD = GameObject.FindWithTag("Player").GetComponent<PlayerHUDController>();
@@ -22,9 +22,10 @@ public class WeaponThrow : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Mouse1) && gunContainer.transform.childCount>0)
+        if(Input.GetKeyDown(KeyCode.Mouse1) && gunContainer.transform.childCount>0 && anim.isPlaying == false)
         {
-            Throw(gunContainer.GetChild(0).transform.gameObject);
+            coroutine = ThrowAction();
+            StartCoroutine(coroutine);
         }
         else if(Input.GetKeyDown(KeyCode.Mouse1))
         {
@@ -41,6 +42,12 @@ public class WeaponThrow : MonoBehaviour
                  PullTowards(hit.transform.gameObject);
             }
         }
+    }
+    IEnumerator ThrowAction()
+    {
+        anim.Play("PistolThrow");
+        yield return new WaitForSeconds(0.69f);
+        Throw(gunContainer.GetChild(0).transform.gameObject);
     }
 
     private void OnCollisionEnter(Collision other) {
@@ -59,7 +66,7 @@ public class WeaponThrow : MonoBehaviour
     {
         Rigidbody rb = thisGunObject.GetComponent<Rigidbody>();
         Transform playerOrientation = GameObject.FindWithTag("Player").GetComponent<Transform>();
-        Vector3 pullDirection = new Vector3(0,0.8f,0) + -(thisGunObject.transform.position - playerOrientation.position).normalized;
+        Vector3 pullDirection = new Vector3(0,0.7f,0) + -(thisGunObject.transform.position - playerOrientation.position).normalized;
         rb.AddForce(pullDirection * Vector3.Distance(thisGunObject.transform.position,playerOrientation.position), ForceMode.Impulse);
     }
 

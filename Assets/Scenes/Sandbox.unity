@@ -341,11 +341,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d027af1092f6b434090f040565e7e656, type: 3}
---- !u!4 &418397521 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7972320479790577298, guid: a1104d514093c3343b193b4c4024446a, type: 3}
-  m_PrefabInstance: {fileID: 2850317825975157116}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &570809316
 GameObject:
   m_ObjectHideFlags: 0
@@ -575,6 +570,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 143.845, y: -14.408997, z: -63.199005}
+--- !u!1 &777066111 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6463076168703629201, guid: 2f8cae5ecd99bfa418fe4efa15185c85, type: 3}
+  m_PrefabInstance: {fileID: 39557471}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &777066116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777066111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f322820804eb3f498d99a1d5ca85b0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dissolveShader: {fileID: -6465566751694194690, guid: 40ffc8aa53d738f4f89ee3c936aed29b, type: 3}
+  _dissolveDuration: 1
+  _health: 100
 --- !u!1 &889446566
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,7 +730,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 418397521}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3615075486368408667, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_Name
@@ -723,35 +738,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.553
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 6.395
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -0.61
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7489823
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.6625901
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4134450335475728097, guid: fce1b9fb5f93f794aa86a145c564afe5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -984,7 +999,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 66414835671dde84f90836a048dd8223, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1041,7 +1056,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f322820804eb3f498d99a1d5ca85b0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  _dissolveShader: {fileID: -6465566751694194690, guid: 40ffc8aa53d738f4f89ee3c936aed29b, type: 3}
+  _dissolveDuration: 1
+  _health: 100
 --- !u!1 &1484133512
 GameObject:
   m_ObjectHideFlags: 0
